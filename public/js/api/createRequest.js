@@ -3,26 +3,37 @@
  * на сервер.
  * */
 const createRequest = (options = {}) => {
-  const {
-    url, data, method, callback,
-  } = options;
-  const xhr = new XMLHttpRequest();
-  xhr.responseType = 'json';
-  const formData = new FormData();
-  const arr = [];
-  for (const key in data) {
-    arr.push(`${key}=${data[key]}`);
-  }
-  for (const item in data) {
-    FormData.append(item, data[item]);
-  }
-  try {
-    xhr.open(method, resultUrl);
-    xhr.send(method === 'GET' ? null : formData);
-  } catch (e) {
-    callback(e);
-  }
-  xhr.onerror = function () {
-    callback(xhr.statusText, null);
-  };
+    let formData = new FormData();
+    if (options.method.toUpperCase() != 'GET') {
+        for (let field in options.data) {
+            formData.append(field, options.data[field]);
+        }
+    } else {
+        let param = '';
+        let arr = [];
+        for (let field in options.data) {
+            arr.push(field + '=' + options.data[field]);
+        }
+        param = arr.join('&');
+        options.url = options.url + '?' + param;
+    }
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    try {
+        xhr.open(options.method, options.url);
+        xhr.send(formData);
+    } catch (e) {
+        options.callback(e);
+    }
+
+    xhr.onload = function() {
+        let response = null;
+        let error = null;
+        if (xhr.status != 200) {
+            error = xhr.statusText;
+        } else {
+            response = xhr.response;
+        }
+        options.callback(error, response);
+    }
 };

@@ -4,51 +4,51 @@
  * и за кнопки меню
  * */
 class Sidebar {
-  /**
+    /**
      * Запускает initAuthLinks и initToggleButton
      * */
-  static init() {
-    this.initAuthLinks();
-    this.initToggleButton();
-  }
+    static init() {
+        this.initAuthLinks();
+        this.initToggleButton();
+    }
 
-  /**
+    /**
      * Отвечает за скрытие/показа боковой колонки:
      * переключает два класса для body: sidebar-open и sidebar-collapse
      * при нажатии на кнопку .sidebar-toggle
      * */
-  static initToggleButton() {
-    const app = document.querySelector('.app');
-    const sidebrToggle = document.querySelector('.sidebar-toggle');
-    sidebrToggle.onclick = function () {
-      app.classList.toggle('sedebar-open');
-      app.classList.toggle('sedebar-collapse');
-    };
-  }
+    static initToggleButton() {
+        const app = document.querySelector('.app');
+        const sidebrToggle = document.querySelector('.sidebar-toggle');
+        sidebrToggle.onclick = function() {
+            app.classList.toggle('sedebar-open');
+            app.classList.toggle('sedebar-collapse');
+        };
+    }
 
-  /**
+    /**
      * При нажатии на кнопку входа, показывает окно входа
      * (через найденное в App.getModal)
      * При нажатии на кнопку регастрации показывает окно регистрации
      * При нажатии на кнопку выхода вызывает User.logout и по успешному
      * выходу устанавливает App.setState( 'init' )
      * */
-  static initAuthLinks() {
-    const menuRegister = document.querySelector('.menu-item_register');
-    menuRegister.addEventListener('click', (event) => {
-      App.getModal('register').open();
-    });
-    const menuLogin = document.querySelector('.menu-item_login');
-    menuLogin.addEventListener('click', (event) => {
-      App.getModal('login').open();
-    });
-    const menuItemLogout = document.querySelector('.menu-item_logout');
-    menuItemLogout.addEventListener('click', (event) => {
-      User.logout((err, response) => {
-        if (response.success) {
-          App.setState('init');
-        }
-      });
-    });
-  }
+    static initAuthLinks() {
+        const menuRegister = document.querySelector('.menu-item_register');
+        menuRegister.addEventListener('click', () => {
+            App.getModal('register').open();
+        });
+        const menuLogin = document.querySelector('.menu-item_login');
+        menuLogin.addEventListener('click', () => {
+            App.getModal('login').open();
+        });
+        const menuItemLogout = document.querySelector('.menu-item_logout');
+        menuItemLogout.addEventListener('click', () => {
+            User.logout((err, response) => {
+                if (response.success) {
+                    App.setState('init');
+                }
+            });
+        });
+    }
 }
