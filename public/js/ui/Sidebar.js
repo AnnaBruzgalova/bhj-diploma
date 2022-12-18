@@ -18,12 +18,12 @@ class Sidebar {
      * при нажатии на кнопку .sidebar-toggle
      * */
     static initToggleButton() {
-        const app = document.querySelector('.app');
-        const sidebrToggle = document.querySelector('.sidebar-toggle');
-        sidebrToggle.onclick = function() {
-            app.classList.toggle('sedebar-open');
-            app.classList.toggle('sedebar-collapse');
-        };
+        const app = document.querySelector('.app')
+        const sidebarToggle = document.querySelector('.sidebar-toggle');
+        sidebarToggle.onclick = function() {
+            app.classList.toggle('sidebar-open');
+            app.classList.toggle('sidebar-collapse');
+        }
     }
 
     /**
@@ -35,20 +35,22 @@ class Sidebar {
      * */
     static initAuthLinks() {
         const menuRegister = document.querySelector('.menu-item_register');
-        menuRegister.addEventListener('click', () => {
+        menuRegister.addEventListener('click', (event) => {
             App.getModal('register').open();
-        });
+        })
+
         const menuLogin = document.querySelector('.menu-item_login');
-        menuLogin.addEventListener('click', () => {
+        menuLogin.addEventListener('click', (event) => {
             App.getModal('login').open();
-        });
+        })
+
         const menuItemLogout = document.querySelector('.menu-item_logout');
-        menuItemLogout.addEventListener('click', () => {
+        menuItemLogout.addEventListener('click', (event) => {
             User.logout((err, response) => {
                 if (response.success) {
                     App.setState('init');
                 }
             });
-        });
+        })
     }
 }
