@@ -22,11 +22,11 @@ class CreateTransactionForm extends AsyncForm {
 
         Account.list(User.current(), (err, data) => {
             if (data.success) {
-                for (let i = 0; i < data.leght; i++) {
+                for (let i = 0; i < data.data.length; i++) {
                     let dataItem = data.data[i];
                     elemOption += `
-                    <option value="${dataItem.id}">${dataItem.name}</option>
-                    `;
+                <option value="${dataItem.id}">${dataItem.name}</option>
+              `;
                 }
                 accountsSelect.innerHTML = elemOption;
             }

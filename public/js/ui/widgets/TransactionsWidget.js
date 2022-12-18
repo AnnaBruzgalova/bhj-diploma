@@ -12,22 +12,26 @@ class TransactionsWidget {
      * необходимо выкинуть ошибку.
      * */
     constructor(element) {
-        if (!element) {
-            throw new Error('Ошибка- передан пустой элемент');
+            if (!element) {
+                throw new Error('Ошибка - передан пустой элемент!');
+            }
+            this.element = element;
+            this.registerEvents();
         }
-        this.element = element;
-        this.registerEvents();
-    }
-
-    /**
-     * Регистрирует обработчики нажатия на
-     * кнопки «Новый доход» и «Новый расход».
-     * При нажатии вызывает Modal.open() для
-     * экземпляра окна
-     * */
+        /**
+         * Регистрирует обработчики нажатия на
+         * кнопки «Новый доход» и «Новый расход».
+         * При нажатии вызывает Modal.open() для
+         * экземпляра окна
+         * */
     registerEvents() {
         const createIncomeButton = this.element.querySelector('.create-income-button');
         createIncomeButton.onclick = (event) => {
+            App.getModal('newIncome').open();
+        }
+
+        const createExpenseButton = this.element.querySelector('.create-expense-button');
+        createExpenseButton.onclick = (event) => {
             App.getModal('newExpense').open();
         }
     }

@@ -15,6 +15,6 @@ class CreateAccountForm extends AsyncForm {
                 App.update();
                 App.getModal('createAccount').close();
             }
-        });
+        })
     }
 }
